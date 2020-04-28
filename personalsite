@@ -1,0 +1,18 @@
+server {
+	listen 80;
+	server_name bramsey.dev;
+	return 301 https://$host$request_uri;
+}
+
+server {
+	listen 443 ssl http2;
+	server_name bramsey.dev;
+
+	ssl_certificate /etc/letsencrypt/live/bramsey.dev/fullchain.pem;
+	ssl_certificate_key /etc/letsencrypt/live/bramsey.dev/privkey.pem;
+
+	location / { 
+	    include uwsgi_params;
+	    uwsgi_pass unix:/home/site-manager/personalSite/myproject.sock;
+	}
+}

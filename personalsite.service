@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance to serve personal website
+After=network.target
+
+[Service]
+User=site-manager
+Group=www-data
+WorkingDirectory=/home/site-manager/personalSite
+Environment="PATH=/home/site-manager/personalSite/venv/bin"
+ExecStart=/home/site-manager/personalSite/venv/bin/uwsgi --ini personalSite.ini
+
+[Install]
+WantedBy=multi-user.target
